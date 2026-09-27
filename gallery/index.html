@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery</title>
+  <meta name="description" content="Original paintings for sale.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" id="brand">Gallery</a>
+    <nav>
+      <a href="#works">Works</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <h1 id="hero-name">Gallery</h1>
+      <p id="hero-tagline"></p>
+    </section>
+
+    <section id="works" class="works">
+      <div class="works-head">
+        <h2>Works</h2>
+        <div class="filters" role="group" aria-label="Filter paintings">
+          <button class="filter is-active" data-filter="all">All</button>
+          <button class="filter" data-filter="available">Available</button>
+          <button class="filter" data-filter="sold">Sold</button>
+        </div>
+      </div>
+      <ul class="grid" id="grid"></ul>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About the artist</h2>
+      <p id="about-text"></p>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Buying a painting</h2>
+      <ol class="steps">
+        <li><strong>Choose</strong> a piece marked Available and press “Inquire”.</li>
+        <li><strong>Email</strong> me — I’ll reply with shipping cost and payment options.</li>
+        <li><strong>Receive</strong> it carefully packed, signed, and ready to hang.</li>
+      </ol>
+      <p><a class="button" id="contact-link" href="#">Email me</a></p>
+      <p id="insta" hidden><a id="insta-link" href="#" target="_blank" rel="noopener">Instagram</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> <span id="footer-name"></span>. All artworks and images are the property of the artist.</p>
+  </footer>
+
+  <dialog id="viewer" aria-labelledby="v-title">
+    <button class="close" id="v-close" aria-label="Close">×</button>
+    <div class="viewer-body">
+      <img id="v-img" alt="">
+      <div class="viewer-info">
+        <p class="status" id="v-status"></p>
+        <h3 id="v-title"></h3>
+        <p class="meta" id="v-meta"></p>
+        <p id="v-desc"></p>
+        <p class="price" id="v-price"></p>
+        <a class="button" id="v-inquire" href="#">Inquire about this painting</a>
+        <div class="viewer-nav">
+          <button id="v-prev" aria-label="Previous painting">← Prev</button>
+          <button id="v-next" aria-label="Next painting">Next →</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="paintings.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

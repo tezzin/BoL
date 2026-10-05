@@ -1,0 +1,53 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [claude/easy-macro-recorder-qhla07]
+    paths: ['easy-macro-recorder/**', '.github/workflows/build-windows.yml']
+  workflow_dispatch:
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: easy-macro-recorder
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller pytest
+
+      - name: Run tests
+        run: python -m pytest tests -q
+
+      - name: Build EXE
+        run: python -m PyInstaller --clean EasyMacroRecorder.spec
+
+      - name: Show SHA-256 of the EXE
+        shell: pwsh
+        run: Get-FileHash dist\EasyMacroRecorder.exe -Algorithm SHA256
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EasyMacroRecorder-windows
+          path: easy-macro-recorder/dist/EasyMacroRecorder.exe
+          if-no-files-found: error
+
+      - name: Attach to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: easy-macro-recorder/dist/EasyMacroRecorder.exe
